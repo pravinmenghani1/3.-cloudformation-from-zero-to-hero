@@ -1,0 +1,41 @@
+{ 
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "Creates the s3 bucket.",
+    "Resources": {
+        "S3Bucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+                "VersioningConfiguration": {
+                    "Status": "Enabled"
+                },
+                "BucketEncryption": {
+                    "ServerSideEncryptionConfiguration": [
+                        {
+                            "ServerSideEncryptionByDefault": {
+                                "SSEAlgorithm": "AES256"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "S3BucketName": {
+            "Description": "The name of the S3 bucket",
+            "Value": {
+                "Ref": "S3Bucket"
+            }
+        }
+    }
+}
+# This template creates an S3 bucket with versioning enabled and server-side encryption using AES256
+# The bucket name can be referenced in other templates or outputs
+# Ensure that the necessary permissions are in place to create S3 buckets in your AWS account
+# You can deploy this template using AWS CloudFormation or the AWS CLI
+# Example CLI command: aws cloudformation create-stack --stack-name my-s3-stack --template-body file://s3.yaml
+# Make sure to replace 'my-s3-stack' with your desired stack name
+# After deployment, you can find the bucket name in the CloudFormation outputs
+# Note: This template does not include any policies or permissions for the bucket
+# You may need to add bucket policies or IAM roles depending on your use case
+# For more advanced configurations, consider adding lifecycle rules, access logging, or cross-region replication
